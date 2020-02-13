@@ -11,13 +11,14 @@
  * 7. OPTIONAL: Set $fallbackurl if the user are failed to be redirected to the Billplz Payment Page.
  *
  */
-$api_key = 'APIKEY';
-$collection_id = 'COLLECTION';
-$x_signature = 'X_SIGNATURE';
+include 'trahsia.php';
+$api_key = BILLPLZ_API_KEY;//'APIKEY';
+$collection_id = BILL_001;//'COLLECTION';
+$x_signature = BILLPLZ_API_XKEY;//'X_SIGNATURE';
 
-$websiteurl = 'http://www.google.com';
-$successpath = 'http://www.google.com/success.html';
-$amount = ''; //Example (RM13.50): $amount = '1350';
+$websiteurl = 'http://' . WEBSITE;
+$successpath = 'http://' . WEB_BERJAYA;#contoh je
+$amount = '555'; //Example (RM13.50): $amount = '1350';
 $fallbackurl = ''; //Example: $fallbackurl = 'http://www.google.com/pay.php';
 $description = 'PAYMENT DESCRIPTION';
 $reference_1_label = '';
