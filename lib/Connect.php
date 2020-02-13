@@ -4,22 +4,23 @@ namespace Billplz\Minisite;
 
 class Connect
 {
-    private $api_key;
-    private $x_signature_key;
-    private $collection_id;
+#--------------------------------------------------------------------------------------------------
+	private $api_key;
+	private $x_signature_key;
+	private $collection_id;
 
-    private $process; //cURL or GuzzleHttp
-    public $is_production;
-    public $detect_mode = false;
-    public $url;
-    public $webhook_rank;
+	private $process; //cURL or GuzzleHttp
+	public $is_production;
+	public $detect_mode = false;
+	public $url;
+	public $webhook_rank;
 
-    public $header;
+	public $header;
 
-    const TIMEOUT = 10; //10 Seconds
-    const PRODUCTION_URL = 'https://www.billplz.com/api/';
-    const STAGING_URL = 'https://billplz-staging.herokuapp.com/api/';
-
+	const TIMEOUT = 10; //10 Seconds
+	const PRODUCTION_URL = 'https://www.billplz.com/api/';
+	const STAGING_URL = 'https://billplz-staging.herokuapp.com/api/';
+#--------------------------------------------------------------------------------------------------
     public function __construct($api_key)
     {
         $this->api_key = $api_key;
@@ -42,7 +43,7 @@ class Connect
             curl_setopt($this->process, CURLOPT_USERPWD, $this->header);
         }
     }
-
+#--------------------------------------------------------------------------------------------------
     public function setMode($is_production = false)
     {
         $this->is_production = $is_production;
@@ -52,14 +53,14 @@ class Connect
             $this->url = self::STAGING_URL;
         }
     }
-
+#--------------------------------------------------------------------------------------------------
     public function detectMode()
     {
         $this->url = self::PRODUCTION_URL;
         $this->detect_mode = true;
         return $this;
     }
-
+#--------------------------------------------------------------------------------------------------
     public function getWebhookRank()
     {
         $url = $this->url . 'v4/webhook_rank';
@@ -75,7 +76,7 @@ class Connect
         }
         return $return;
     }
-
+#--------------------------------------------------------------------------------------------------
     public function getCollectionIndex($parameter = array())
     {
         $url = $this->url . 'v4/collections?'.http_build_query($parameter);
@@ -91,7 +92,7 @@ class Connect
         }
         return $return;
     }
-
+#--------------------------------------------------------------------------------------------------
     public function createCollection($title, $optional = array())
     {
         $url = $this->url . 'v4/collections';
@@ -130,7 +131,7 @@ class Connect
 
         return $return;
     }
-
+#--------------------------------------------------------------------------------------------------
     public function createOpenCollection($parameter, $optional = array())
     {
         $url = $this->url . 'v4/open_collections';
@@ -174,7 +175,7 @@ class Connect
 
         return $return;
     }
-
+#--------------------------------------------------------------------------------------------------
     public function getCollection($id)
     {
         $url = $this->url . 'v4/collections/'.$id;
@@ -191,7 +192,7 @@ class Connect
 
         return $return;
     }
-
+#--------------------------------------------------------------------------------------------------
     public function getOpenCollection($id)
     {
         $url = $this->url . 'v4/open_collections/'.$id;
@@ -207,7 +208,7 @@ class Connect
 
         return $return;
     }
-
+#--------------------------------------------------------------------------------------------------
     public function getOpenCollectionIndex($parameter = array())
     {
         $url = $this->url . 'v4/open_collections?'.http_build_query($parameter);
@@ -223,7 +224,7 @@ class Connect
         }
         return $return;
     }
-
+#--------------------------------------------------------------------------------------------------
     public function createMPICollection($title)
     {
         $url = $this->url . 'v4/mass_payment_instruction_collections';
@@ -244,7 +245,7 @@ class Connect
 
         return $return;
     }
-
+#--------------------------------------------------------------------------------------------------
     public function getMPICollection($id)
     {
         $url = $this->url . 'v4/mass_payment_instruction_collections/'.$id;
@@ -260,7 +261,7 @@ class Connect
 
         return $return;
     }
-
+#--------------------------------------------------------------------------------------------------
     public function createMPI($parameter, $optional = array())
     {
         $url = $this->url . 'v4/mass_payment_instructions';
@@ -285,7 +286,7 @@ class Connect
 
         return $return;
     }
-
+#--------------------------------------------------------------------------------------------------
     public function getMPI($id)
     {
         $url = $this->url . 'v4/mass_payment_instructions/'.$id;
@@ -301,7 +302,7 @@ class Connect
 
         return $return;
     }
-
+#--------------------------------------------------------------------------------------------------
     public static function getXSignature($x_signature_key)
     {
         $signingString = '';
@@ -362,7 +363,7 @@ class Connect
 
         throw new \Exception('X Signature Calculation Mismatch!');
     }
-
+#--------------------------------------------------------------------------------------------------
     public function deactivateCollection($title, $option = 'deactivate')
     {
         $url = $this->url . 'v3/collections/'.$title.'/'.$option;
@@ -384,7 +385,7 @@ class Connect
 
         return $return;
     }
-
+#--------------------------------------------------------------------------------------------------
     public function createBill($parameter, $optional = array())
     {
         $url = $this->url . 'v3/bills';
@@ -409,7 +410,7 @@ class Connect
 
         return $return;
     }
-
+#--------------------------------------------------------------------------------------------------
     public function getBill($id)
     {
         $url = $this->url . 'v3/bills/'.$id;
@@ -428,7 +429,7 @@ class Connect
 
         return $return;
     }
-
+#--------------------------------------------------------------------------------------------------
     public function deleteBill($id)
     {
         $url = $this->url . 'v3/bills/'.$id;
@@ -447,7 +448,7 @@ class Connect
 
         return $return;
     }
-
+#--------------------------------------------------------------------------------------------------
     public function bankAccountCheck($id)
     {
         $url = $this->url . 'v3/check/bank_account_number/'.$id;
@@ -463,7 +464,7 @@ class Connect
 
         return $return;
     }
-
+#--------------------------------------------------------------------------------------------------
     public function getPaymentMethodIndex($id)
     {
         $url = $this->url . 'v3/collections/'.$id.'/payment_methods';
@@ -479,7 +480,7 @@ class Connect
 
         return $return;
     }
-
+#--------------------------------------------------------------------------------------------------
     public function getTransactionIndex($id, $parameter)
     {
         $url = $this->url . 'v3/bills/'.$id.'/transactions?'.http_build_query($parameter);
@@ -496,7 +497,7 @@ class Connect
 
         return $return;
     }
-
+#--------------------------------------------------------------------------------------------------
     public function updatePaymentMethod($parameter)
     {
         if (!isset($parameter['collection_id'])) {
@@ -528,7 +529,7 @@ class Connect
 
         return $return;
     }
-
+#--------------------------------------------------------------------------------------------------
     public function getBankAccountIndex($parameter)
     {
         if (!is_array($parameter['account_numbers'])) {
@@ -552,7 +553,7 @@ class Connect
 
         return $return;
     }
-
+#--------------------------------------------------------------------------------------------------
     public function getBankAccount($id)
     {
         $url = $this->url . 'v3/bank_verification_services/'.$id;
@@ -568,7 +569,7 @@ class Connect
 
         return $return;
     }
-
+#--------------------------------------------------------------------------------------------------
     public function createBankAccount($parameter)
     {
         $url = $this->url . 'v3/bank_verification_services';
@@ -586,7 +587,7 @@ class Connect
         }
         return $return;
     }
-
+#--------------------------------------------------------------------------------------------------
     public function getFpxBanks()
     {
         $url = $this->url . 'v3/fpx_banks';
@@ -602,7 +603,7 @@ class Connect
 
         return $return;
     }
-
+#--------------------------------------------------------------------------------------------------
     private function guzzleProccessRequest($requestType, $url, $header)
     {
         try {
@@ -614,7 +615,7 @@ class Connect
         }
         return array($response->getStatusCode(),$return);
     }
-
+#--------------------------------------------------------------------------------------------------
     public function closeConnection()
     {
         if ($this->process instanceof \GuzzleHttp\Client) {
@@ -623,9 +624,10 @@ class Connect
             curl_close($this->process);
         }
     }
-
+#--------------------------------------------------------------------------------------------------
     public function toArray($json)
     {
         return array($json[0], \json_decode($json[1], true));
     }
+#--------------------------------------------------------------------------------------------------
 }
